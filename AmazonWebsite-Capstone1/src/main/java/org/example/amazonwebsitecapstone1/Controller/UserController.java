@@ -79,7 +79,7 @@ public class UserController {
 
         switch (result) {
             case -1:
-                return ResponseEntity.status(400).body(new ApiResponse("This discount amount not valid, it must be greater than 0!"));
+                return ResponseEntity.status(400).body(new ApiResponse("This discount amount not valid!"));
 
             case -2:
                 return ResponseEntity.status(400).body(new ApiResponse("Product with this ID not found!"));
