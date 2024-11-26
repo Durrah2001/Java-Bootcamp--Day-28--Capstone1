@@ -1,0 +1,13 @@
+package org.example.amazonwebsitecapstone1;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class AmazonWebsiteCapstone1Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AmazonWebsiteCapstone1Application.class, args);
+    }
+
+}
