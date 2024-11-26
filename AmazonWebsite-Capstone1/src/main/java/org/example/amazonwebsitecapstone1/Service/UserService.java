@@ -53,10 +53,12 @@ public class UserService {
 
     //1. extra endpoint: Get a discount amount on specific product
 
-    public int discountOfProduct(String user_id, String product_id, double discount_amount) {
+   public int discountOfProduct(String user_id, String product_id, double discount_amount) {
+
+        List<Double> allowedDiscounts = Arrays.asList(5.0, 10.0, 15.0, 20.0, 25.0);
 
         ArrayList<Product> products = productService.getProducts();
-        if (discount_amount <= 0) {
+        if (discount_amount <= 0 || !allowedDiscounts.contains(discount_amount)){
             return -1;
         }
 
