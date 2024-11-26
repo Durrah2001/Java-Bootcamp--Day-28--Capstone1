@@ -83,33 +83,6 @@ public class MerchantStockService {
 
     //End CRUD//
 
-    public int addProductToStock(String product_id, String merchant_id, int additionalAmount) {
-
-        if (additionalAmount <= 0) { //Amount can't be less than or zero
-
-            return 0;
-        }
-
-        for (MerchantStock merchantStock : merchantStocks) {
-
-            if (merchantStock.getProduct_id().equals(product_id)) {
-
-                if (merchantStock.getMerchant_id().equals(merchant_id)) {
-                    merchantStock.setStock((merchantStock.getStock() + additionalAmount));
-
-                    return 1; // if all conditions match
-
-                }
-                return -2; // if merchant_id not found
-
-            }
-        }
-
-        return -1; // if product_id not found
-    }
-///////////////////////////
-
-
     public int buyProduct(String user_id, String product_id, String merchant_id) {
 
         ArrayList<User> users = userService.getUsers();
@@ -174,6 +147,12 @@ public class MerchantStockService {
         user.setBalance(user.getBalance() - product.getPrice());
 
 
+        if (user.getPurchasedProducts() == null) {
+            user.setPurchasedProducts(new ArrayList<>());
+        }
+        user.getPurchasedProducts().add(product_id);
+
+
         return 1;
 
 
@@ -182,7 +161,7 @@ public class MerchantStockService {
 
     //2. extra endpoint: Return a product that user purchased
 
-    public int returnProduct(String user_id, String product_id, String merchant_id) {
+public int returnProduct(String user_id, String product_id, String merchant_id) {
 
         ArrayList<User> users = userService.getUsers();
         ArrayList<Product> products = productService.getProducts();
@@ -221,6 +200,13 @@ public class MerchantStockService {
 
         if (merchant == null)
             return -3;
+
+
+        // check if the product was purchased by the user
+        if (user.getPurchasedProducts() == null || !user.getPurchasedProducts().contains(product_id)) {
+            return -4; // Product not purchased by user
+        }
+
 
         for (MerchantStock merchantStock : merchantStocks) {
 
