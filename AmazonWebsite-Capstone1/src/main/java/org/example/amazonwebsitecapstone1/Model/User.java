@@ -4,6 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 public class User {
@@ -31,6 +33,9 @@ public class User {
 
     @Positive(message = "Balance must be a positive number only!")
     private double balance;
+
+    private List<String> purchasedProducts;
+
 
 
 }
