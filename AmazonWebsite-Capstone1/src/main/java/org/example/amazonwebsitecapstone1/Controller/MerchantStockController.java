@@ -113,7 +113,7 @@ public class MerchantStockController {
 
     //2. extra endpoint: Return a product that user purchased
 
-    @PutMapping("/return-product/{user_id}/{product_id}/{merchant_id}")
+   @PutMapping("/return-product/{user_id}/{product_id}/{merchant_id}")
     public ResponseEntity returnProduct(@PathVariable String user_id, @PathVariable String product_id, @PathVariable String merchant_id) {
 
         int returnStatus = merchantStockService.returnProduct(user_id, product_id, merchant_id);
@@ -125,6 +125,9 @@ public class MerchantStockController {
                 return ResponseEntity.status(400).body(new ApiResponse("Product with this ID not found!"));
             case -3:
                 return ResponseEntity.status(400).body(new ApiResponse("Merchant with this ID not found!"));
+
+            case -4:
+                return ResponseEntity.status(400).body(new ApiResponse("This product not purchased from user!"));
 
             case 1:
                 return ResponseEntity.status(200).body(new ApiResponse("Return operation done successfully!"));
